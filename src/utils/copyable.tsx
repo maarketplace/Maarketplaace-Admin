@@ -7,5 +7,5 @@ export const copyToClipboard = (text: string) => {
     tempTextArea.select();
     document.execCommand('copy');
     document.body.removeChild(tempTextArea);
-    toast.success('Link copied successfully!');
+    toast.success('copied successfully!');
 };

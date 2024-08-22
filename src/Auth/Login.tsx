@@ -9,8 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = () => {
+    // e.preventDefault();
     // Handle login logic here
     console.log("Login submitted", { email, password, rememberMe });
   };

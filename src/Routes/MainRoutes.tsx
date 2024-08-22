@@ -4,11 +4,11 @@ import Login from "../Auth/Login";
 
 export const MainRoutes = createBrowserRouter([
   {
-    path: "",
+    path: "/",
     element: <Welcome />,
   },
   {
-    path: "login",
+    path: "/login",
     element: <Login />,
   },
 ]);

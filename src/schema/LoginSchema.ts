@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-export const AdminLoginSchema = yup.object(
+export const LoginSchema = yup.object(
     {
 
         email: yup.string().email("Email must be a valid email format").required("Email is required"),

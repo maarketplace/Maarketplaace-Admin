@@ -18,8 +18,8 @@ const Welcome = () => {
         transition={{ delay: 0.2, duration: 0.5 }}
         className="w-[50%] h-[20%] flex justify-center items-center flex-col"
       >
-        <p className="text-2xl font-semibold">maarketPlaace</p>
         <img src={Logo1} alt="" className="w-[35%] h-[35%] object-contain" />
+        <p className="text-2xl font-semibold">maarketplaace</p>
       </motion.div>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
@@ -41,7 +41,7 @@ const Welcome = () => {
           transition={{ delay: 0.8, duration: 0.5 }}
           className="w-full h-[35%] flex justify-around items-center flex-col"
         >
-          <p className="text-2xl font-semibold">Welcome to maarketPlaace</p>
+          <p className="text-2xl font-semibold">Welcome to maarketplaace</p>
           <p className="text-center text-sm text-gray-400">
             Welcome to Maarketplaace internal dashboard - the secure back office
             for managing transactions, merchants and all users.

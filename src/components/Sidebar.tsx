@@ -1,35 +1,18 @@
 import React from "react";
 import { Logo1 } from "../assets";
-import { MdOutlineClear, MdOutlineDashboard } from "react-icons/md";
-
-import { HiOutlineUsers } from "react-icons/hi";
-import { BiMoneyWithdraw } from "react-icons/bi";
-
-import { RiAccountPinCircleFill } from "react-icons/ri";
+import { MdOutlineClear } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { SidebatInter } from "../interface/SideInterface";
+import { MeMenuInterface } from "../interface/MenuInterface";
+import { menuItems } from "./Menuitem"; // Import the menuItems
 
-interface MenuItem {
-  name: string;
-  icon: React.ReactElement;
-  path: string;
+interface SidebarProps extends SidebatInter {
+  menuItems: MeMenuInterface[];
 }
 
-interface SidebarProps {
-  active: boolean;
-  setActive: (active: boolean) => void;
-}
-
-const Sidebar: React.FC<SidebarProps> = ({ active, setActive }) => {
+const Sidebar: React.FC<SidebarProps> = ({ active, setActive, menuItems }) => {
   const navigate = useNavigate();
   const [selectedMenu, setSelectedMenu] = React.useState<number | null>(null);
-
-  const menuItems: MenuItem[] = [
-    { name: "Overview", icon: <MdOutlineDashboard />, path: "overview" },
-    { name: "Customers", icon: <HiOutlineUsers />, path: "deposit" },
-    { name: "Transactions", icon: <BiMoneyWithdraw />, path: "withdraw" },
-
-    { name: "Support", icon: <RiAccountPinCircleFill />, path: "support" },
-  ];
 
   const handleMenuClick = (path: string, index: number) => {
     setSelectedMenu(index);
@@ -48,18 +31,11 @@ const Sidebar: React.FC<SidebarProps> = ({ active, setActive }) => {
           <span className="text-[#E4C354]">maarketPlaace</span>
         </div>
         <div className="sidebar_items w-[90%]">
-          <ul className="sidebar_items_inner text-slate-400">
-            {menuItems.map((item, index) => (
-              <li
-                key={index}
-                className={selectedMenu === index ? "active" : ""}
-                onClick={() => handleMenuClick(item.path, index)}
-              >
-                <span className="menu_icon">{item.icon}</span>
-                <a href="#">{item.name}</a>
-              </li>
-            ))}
-          </ul>
+          <menuItems
+            items={menuItems}
+            onMenuClick={handleMenuClick}
+            selectedMenu={selectedMenu}
+          />
         </div>
       </div>
     </aside>

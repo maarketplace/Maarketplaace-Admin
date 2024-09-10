@@ -2,9 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Logo1 } from "../assets";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { useMutation } from 'react-query'
+import { SubmitHandler, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useMutation } from "react-query";
 import { ILoginInterface } from "../interface/LoginInterface";
 import { LoginSchema } from "../schema/LoginSchema";
 import { adminLogin } from "../api/mutation";
@@ -15,22 +15,22 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const form = useForm<ILoginInterface>({
-    resolver: yupResolver(LoginSchema) as any
+    resolver: yupResolver(LoginSchema) as any,
   });
-  const { register, handleSubmit, formState: { errors } } = form;
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
-  const { data, isLoading, mutate } = useMutation(['adminLogin'], adminLogin, {
-    onSuccess: () => {
-
-    },
-    onError: () => {
-
-    }
-  })
+  const { data, isLoading, mutate } = useMutation(["adminLogin"], adminLogin, {
+    onSuccess: () => {},
+    onError: () => {},
+  });
   console.log(data);
 
   const onSubmit: SubmitHandler<ILoginInterface> = (data) => {
-    mutate(data)
+    mutate(data);
   };
   const handleButtonClick = () => {
     handleSubmit(onSubmit)();
@@ -45,7 +45,7 @@ const Login = () => {
       >
         <div className="flex justify-center mb-8  items-center flex-col">
           <img src={Logo1} alt="Logo" className=" size-20" />
-          <p className=" font-semibold text-3xl">MarketPlace</p>
+          <p className=" font-semibold text-3xl">maarketplaace</p>
         </div>
         <form>
           <div className="mb-4">
@@ -58,12 +58,14 @@ const Login = () => {
             <input
               type="email"
               id="email"
-              {...register('email')}
+              {...register("email")}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
               required
             />
           </div>
-          <b className='w-[70%] text-[red] text-[12px] max-[650px]:w-[90%]'>{errors.email?.message}</b>
+          <b className="w-[70%] text-[red] text-[12px] max-[650px]:w-[90%]">
+            {errors.email?.message}
+          </b>
           <div className="mb-4 relative">
             <label
               htmlFor="password"
@@ -74,7 +76,7 @@ const Login = () => {
             <input
               type={showPassword ? "text" : "password"}
               id="password"
-              {...register('password')}
+              {...register("password")}
               className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
               required
             />
@@ -86,7 +88,9 @@ const Login = () => {
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-          <b className='w-[70%] text-[red] text-[12px] max-[650px]:w-[90%]'>{errors.password?.message}</b>
+          <b className="w-[70%] text-[red] text-[12px] max-[650px]:w-[90%]">
+            {errors.password?.message}
+          </b>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center">
               <input
@@ -112,7 +116,7 @@ const Login = () => {
             disabled={isLoading}
             className="w-full bg-[#FFC300] text-white font-bold py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
           >
-            {isLoading ? <Loading /> : 'Login'}
+            {isLoading ? <Loading /> : "Login"}
           </motion.button>
         </form>
       </motion.div>

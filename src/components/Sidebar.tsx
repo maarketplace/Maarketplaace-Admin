@@ -4,7 +4,8 @@ import { MdOutlineClear } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { SidebatInter } from "../interface/SideInterface";
 import { MeMenuInterface } from "../interface/MenuInterface";
-import { menuItems } from "./Menuitem"; // Import the menuItems
+import MenuItems from "./Menuitem";
+
 
 interface SidebarProps extends SidebatInter {
   menuItems: MeMenuInterface[];
@@ -27,11 +28,11 @@ const Sidebar: React.FC<SidebarProps> = ({ active, setActive, menuItems }) => {
       </div>
       <div className="sidebar_inner">
         <div className="logo">
-          <img src={Logo1} alt="maarketplace logo" />
+          <img src={Logo1} alt="marketplace logo" />
           <span className="text-[#E4C354]">maarketPlaace</span>
         </div>
         <div className="sidebar_items w-[90%]">
-          <menuItems
+          <MenuItems
             items={menuItems}
             onMenuClick={handleMenuClick}
             selectedMenu={selectedMenu}

@@ -15,6 +15,7 @@ const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
 
   const form = useForm<ILoginInterface>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: yupResolver(LoginSchema) as any
   });
   const { register, handleSubmit, formState: { errors } } = form;

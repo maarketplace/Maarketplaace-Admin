@@ -50,7 +50,7 @@ const Welcome = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="px-32 py-[0.4rem] bg-[#FFC300] rounded font-semibold text-white"
-            onClick={() => nav("/login")}
+            onClick={() => nav("login")}
           >
             GET STARTED
           </motion.button>

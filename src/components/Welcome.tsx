@@ -10,22 +10,22 @@ const Welcome = () => {
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="w-full h-[30rem] flex justify-around gap-9 items-center flex-col"
+      className="w-full h-[100vh] flex justify-center items-center flex-col"
     >
       <motion.div
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="w-[50%] h-[20%] flex justify-center items-center flex-col"
+        className="w-[50%] flex justify-center items-center flex-col"
       >
-        <p className="text-2xl font-semibold">maarketPlaace</p>
-        <img src={Logo1} alt="" className="w-[35%] h-[35%] object-contain" />
+        <img src={Logo1} alt="" className="w-[100px] object-contain" />
+        {/* <p className="text-[20px]">Welcome to maarketplaace</p> */}
       </motion.div>
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="w-[40%] h-[80%] bg-white shadow-lg flex justify-around items-center flex-col max-md:w-[90%]"
+        className="w-[40%] h-[50%] bg-white shadow-lg flex justify-around items-center flex-col max-md:w-[90%]"
       >
         <motion.div
           initial={{ scale: 0.5, opacity: 0 }}

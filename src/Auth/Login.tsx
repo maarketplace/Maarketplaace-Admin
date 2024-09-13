@@ -9,12 +9,14 @@ import { ILoginInterface } from "../interface/LoginInterface";
 import { LoginSchema } from "../schema/LoginSchema";
 import { adminLogin } from "../api/mutation";
 import Loading from "../loader";
+
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [rememberMe, setRememberMe] = useState(false);
 
   const form = useForm<ILoginInterface>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: yupResolver(LoginSchema) as any,
   });
   const {
@@ -23,12 +25,14 @@ const Login = () => {
     formState: { errors },
   } = form;
 
-  const { data, isLoading, mutate } = useMutation(["adminLogin"], adminLogin, {
-    onSuccess: () => {},
-    onError: () => {},
+  const { isLoading, mutate } = useMutation(["adminLogin"], adminLogin, {
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
   });
-  console.log(data);
-
   const onSubmit: SubmitHandler<ILoginInterface> = (data) => {
     mutate(data);
   };
@@ -36,16 +40,16 @@ const Login = () => {
     handleSubmit(onSubmit)();
   };
   return (
-    <div className="w-full h-screen flex justify-center items-center">
+    <div className="w-full h-[100vh] flex justify-center items-center">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white rounded-lg shadow-md p-8 max-md:w-[90%]"
+        className="w-full max-w-md bg-white rounded-lg shadow-lg p-8 max-[650px]:w-[90%]"
       >
         <div className="flex justify-center mb-8  items-center flex-col">
           <img src={Logo1} alt="Logo" className=" size-20" />
-          <p className=" font-semibold text-3xl">maarketplaace</p>
+          <p className=" text-[24px]">maarketplaace</p>
         </div>
         <form>
           <div className="mb-4">
@@ -59,7 +63,7 @@ const Login = () => {
               type="email"
               id="email"
               {...register("email")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
+              className="w-full px-3 py-2 border border-gray-300  focus:outline-none"
               required
             />
           </div>
@@ -77,7 +81,7 @@ const Login = () => {
               type={showPassword ? "text" : "password"}
               id="password"
               {...register("password")}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#FFC300]"
+              className="w-full px-3 py-2 border border-gray-300  focus:outline-none"
               required
             />
             <button
@@ -109,12 +113,11 @@ const Login = () => {
             </a>
           </div>
           <motion.button
-            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             type="submit"
             onClick={handleButtonClick}
             disabled={isLoading}
-            className="w-full bg-[#FFC300] text-white font-bold py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+            className="w-full bg-[#FFC300] cursor-pointer text-white font-bold py-2 px-4 rounded-md focus:outline-none"
           >
             {isLoading ? <Loading /> : "Login"}
           </motion.button>

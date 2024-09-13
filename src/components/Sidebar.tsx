@@ -1,46 +1,79 @@
-import React from "react";
-import { Logo1 } from "../assets";
-import { MdOutlineClear } from "react-icons/md";
+// const { VITE_TOKEN } = import.meta.env;
+import { FiLogOut } from "react-icons/fi";
+import { RxDashboard } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
-import { SidebatInter } from "../interface/SideInterface";
-import { MeMenuInterface } from "../interface/MenuInterface";
-import MenuItems from "./Menuitem";
-
-
-interface SidebarProps extends SidebatInter {
-  menuItems: MeMenuInterface[];
+import { PiUsersThree } from "react-icons/pi";
+import {
+  IoCartOutline,
+  IoQrCodeOutline,
+  IoBagHandleOutline,
+  IoStorefrontOutline,
+} from "react-icons/io5";
+export interface ToggleSidebar {
+  showSideBar: boolean;
+  setShowSidebar: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-const Sidebar: React.FC<SidebarProps> = ({ active, setActive, menuItems }) => {
+const SideBar = () => {
   const navigate = useNavigate();
-  const [selectedMenu, setSelectedMenu] = React.useState<number | null>(null);
 
-  const handleMenuClick = (path: string, index: number) => {
-    setSelectedMenu(index);
-    navigate(path);
-    setActive(false);
+  const handleLogoutClick = async () => {
+    navigate("/");
+    localStorage.clear();
   };
-
   return (
-    <aside className={`sidebar z-30 ${active ? "active" : ""}`}>
-      <div className="close_icon" onClick={() => setActive(!active)}>
-        <MdOutlineClear />
+    <div className="w-[20%] h-[100vh] flex items-center justify-between bg-[#FFC300] flex-col">
+      <div className="w-full h-[10%] flex justify-center bg-black rounded-br-[16px]">
+        <img src="/MARKETPLAACE 1.svg" alt="" className="w-[150px]" />
       </div>
-      <div className="sidebar_inner">
-        <div className="logo">
-          <img src={Logo1} alt="marketplace logo" />
-          <span className="text-[#E4C354]">maarketPlaace</span>
-        </div>
-        <div className="sidebar_items w-[90%]">
-          <MenuItems
-            items={menuItems}
-            onMenuClick={handleMenuClick}
-            selectedMenu={selectedMenu}
-          />
-        </div>
+      <div className="w-[100%] h-[80%] flex flex-col gap-[10px]">
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%]`}
+        >
+          <RxDashboard className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Dashboard</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%]`}
+        >
+          <IoStorefrontOutline className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Store</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%]`}
+        >
+          <IoCartOutline className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Add Product</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%]`}
+        >
+          <IoBagHandleOutline className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Order</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%]`}
+        >
+          <IoQrCodeOutline className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Transaction</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%] `}
+        >
+          <PiUsersThree className="w-[20%] h-[20px]" />
+          <p className="text-[15px] w-[80%]">Customer</p>
+        </span>
+        <span
+          className={`flex items-center gap-[30px] justify-center h-[50px] cursor-pointer w-[100%] `}
+          onClick={() => {
+            handleLogoutClick();
+          }}
+        >
+          <FiLogOut className="w-[20%] h-[15px]" />
+          <p className="text-[15px] w-[80%]">Log out</p>
+        </span>
       </div>
-    </aside>
+    </div>
   );
 };
 
-export default Sidebar;
+export default SideBar;

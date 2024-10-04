@@ -4,3 +4,7 @@ export interface ILoginInterface {
     password: string
 }
 
+export interface IVerify2fa {
+    token: string
+}
+

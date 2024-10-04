@@ -34,6 +34,8 @@ const Products = () => {
         "Product Name",
         "Payment Price",
         "Category",
+        "Sub Category",
+        "In Stock",
         "Status"
     ];
 
@@ -41,6 +43,8 @@ const Products = () => {
         "Product Name": product?.product_name,
         "Payment Price": product?.payment_price,
         "Category": product?.category,
+        "Sub Category": product?.sub_category,
+        "In Stock": product?.in_stock,
         "Status": product?.status
     }));
 

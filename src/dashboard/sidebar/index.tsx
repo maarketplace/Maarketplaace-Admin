@@ -1,8 +1,11 @@
 import { FiLogOut } from "react-icons/fi";
-import { IoBagHandleOutline } from "react-icons/io5"
+// import { IoBagHandleOutline } from "react-icons/io5"
 import { RxDashboard } from "react-icons/rx"
 import { useNavigate } from "react-router-dom";
 import { LuUsers } from "react-icons/lu";
+import { BsCart } from "react-icons/bs";
+import { MdOutlineLibraryBooks } from "react-icons/md";
+
 interface SideBarProps {
     setShowSidebar?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -30,12 +33,12 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     <RxDashboard className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Overview</p>
                 </span>
-                <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/dashboard/order')}>
+                {/* <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/dashboard/order')}>
                     <IoBagHandleOutline className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Orders</p>
-                </span>
+                </span> */}
                 <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/courses')}>
-                    <IoBagHandleOutline className="w-[20%] h-[15px]" />
+                    <MdOutlineLibraryBooks className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Courses</p>
                 </span>
                 <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/users')}>
@@ -43,7 +46,7 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     <p className="text-[15px] w-[80%]">Users</p>
                 </span>
                 <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/products')}>
-                    <LuUsers className="w-[20%] h-[15px]" />
+                    <BsCart className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Products</p>
                 </span>
                 <span

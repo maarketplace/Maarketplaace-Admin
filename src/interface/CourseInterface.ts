@@ -1,5 +1,5 @@
 export interface ICourse {
-    CourseNameu: string;
+    CourseName: string;
     Author: string;
     Price: string;
     Location: string;

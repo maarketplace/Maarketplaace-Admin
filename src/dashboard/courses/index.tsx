@@ -126,7 +126,7 @@ const Courses = () => {
                                 <img src={selectedOrder.course_image} alt="" />
                             </div>
                             <div>
-                                <p className="w-full flex justify-between font-light"><strong >Course Name:</strong> {selectedOrder.CourseNameu}</p>
+                                <p className="w-full flex justify-between font-light"><strong >Course Name:</strong> {selectedOrder.CourseName}</p>
                                 <p className="w-full flex justify-between font-light"><strong>Author:</strong> {selectedOrder.Author}</p>
                                 <p className="w-full flex justify-between font-light"><strong>Price:</strong> {selectedOrder.Price}</p>
                                 <p className="w-full flex justify-between font-light"><strong>Location:</strong> {selectedOrder.Location}</p>

@@ -25,4 +25,6 @@ export interface ICourse {
     course_URL: string;
     created_at: string; 
     updated_at: string; 
+    Category: string;
+    Date: string;
 }

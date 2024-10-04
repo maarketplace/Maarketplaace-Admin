@@ -110,12 +110,11 @@ const Courses = () => {
                         <option value="canceled">Canceled</option>
                     </select>
                 </div>
-
                 <Table
-                    data={filteredOrders}
+                    data={filteredOrders as ICourse[]}
                     columns={columns}
                     loading={isLoading}
-                    onRowClick={(row) => handleRowClick(row)} // Attach the click handler
+                    onRowClick={(row: ICourse) => handleRowClick(row)}
                 />
 
                 {/* Modal for approving/rejecting courses */}

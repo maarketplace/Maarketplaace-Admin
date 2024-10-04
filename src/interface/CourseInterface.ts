@@ -1,8 +1,8 @@
 export interface ICourse {
-    Author: ReactNode;
-    Price: ReactNode;
-    Location: ReactNode;
-    Status: ReactNode;
+    Author: string;
+    Price: string;
+    Location: string;
+    Status: string;
     id: string ;
     course_id: string;
     merchant_id: string;
@@ -22,6 +22,6 @@ export interface ICourse {
     course_subCategory: string;
     course_image_cloud_url: string;
     course_URL: string;
-    created_at: string;  // or Date if you convert it
-    updated_at: string;  // or Date if you convert it
+    created_at: string; 
+    updated_at: string; 
 }

@@ -2,7 +2,7 @@ import { FiLogOut } from "react-icons/fi";
 import { IoBagHandleOutline } from "react-icons/io5"
 import { RxDashboard } from "react-icons/rx"
 import { useNavigate } from "react-router-dom";
-
+import { LuUsers } from "react-icons/lu";
 interface SideBarProps {
     setShowSidebar?: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -38,9 +38,13 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     <IoBagHandleOutline className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Courses</p>
                 </span>
-                <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/courses')}>
-                    <IoBagHandleOutline className="w-[20%] h-[15px]" />
+                <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/users')}>
+                    <LuUsers className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Users</p>
+                </span>
+                <span className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]" onClick={() => handleNavigation('/admin/products')}>
+                    <LuUsers className="w-[20%] h-[15px]" />
+                    <p className="text-[15px] w-[80%]">Products</p>
                 </span>
                 <span
                     className='flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]'

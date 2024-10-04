@@ -1,6 +1,6 @@
 import toast from "react-hot-toast";
 
-export const copyToClipboard = (text: string) => {
+export const copyToClipboard = (text: string ) => {
     const tempTextArea = document.createElement('textarea');
     tempTextArea.value = text;
     document.body.appendChild(tempTextArea);

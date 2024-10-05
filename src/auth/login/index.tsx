@@ -32,7 +32,7 @@ const Login = () => {
     onError: (err: IErrorResponse) => {
       console.log(err);
       toast.error(err?.response?.data?.message || err?.response?.data?.error?.message || err?.message);
-      if(err?.response?.data?.message  == "Please enable 2fa"){
+      if (err?.response?.data?.message == "Please enable 2fa") {
         navigate('/enable2fa')
       }
     }
@@ -53,11 +53,11 @@ const Login = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md bg-white rounded-lg shadow-lg p-8 max-[650px]:w-[90%]"
+        className="w-full max-w-md bg-white rounded-lg shadow-lg p-8 max-[650px]:w-[100%] max-[650px]:shadow-none"
       >
         <div className="flex justify-center mb-8 items-center flex-col">
           <img src={Logo1} alt="Logo" className="size-20 mb-[20px]" />
-          <p className="text-[20px]">Login to your marketplace account</p>
+          <p className="text-[20px] max-[425px]:text-[15px]">Login to your marketplace account</p>
         </div>
         <form>
           <div className="mb-4">

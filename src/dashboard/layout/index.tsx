@@ -1,9 +1,22 @@
 import { Outlet } from "react-router-dom";
 import SideBar from "../sidebar";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { HiMenuAlt2 } from "react-icons/hi";
 const Layout = () => {
   const [showSideBar, setShowSidebar] = useState<boolean>(false)
+  const handleResize = () => {
+    if (window.innerWidth >= 768) {
+        setShowSidebar(false);
+    }
+};
+
+// Add event listener for window resize
+useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+        window.removeEventListener('resize', handleResize);  // Cleanup listener on component unmount
+    };
+}, []);
   return (
     <div className="h-[100vh] w-[100%] flex">
       <div className="w-[15%] h-[100%] flex flex-col items-center max-[650px]:hidden">

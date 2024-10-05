@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { approveCourse } from "../../api/mutation";
 import toast from "react-hot-toast";
 import './Courses.css'
+import { FaTimes } from "react-icons/fa";
 const Courses = () => {
     const navigate = useNavigate()
     const [allCourses, setAllCourses] = useState<ICourse[]>([]);
@@ -119,18 +120,24 @@ const Courses = () => {
 
                 {/* Modal for approving/rejecting courses */}
                 {isModalOpen && selectedOrder && (
-                    <div className="fixed h-[100vh] inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 overflow-scroll">
-                        <div className="bg-white h-[90%] p-6 rounded-md w-[90%] max-w-md flex flex-col gap-[10px] overflow-scroll">
+                    <div className="fixed h-[100vh] inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 overflow-scroll flex-col">
+                        <div className="bg-white h-[90%] p-6 rounded-md w-[90%] max-w-md flex flex-col gap-[10px] overflow-scroll relative">
+                            <button
+                                onClick={closeModal}
+                                className="px-4 py-2 text-black rounded fixed  right-8"
+                            >
+                                <FaTimes />
+                            </button>
                             <div>
                                 <img src={selectedOrder.course_image} alt="" />
                             </div>
                             <div>
-                                <p className="w-full flex justify-between font-light"><strong >Course Name:</strong> {selectedOrder.CourseName}</p>
-                                <p className="w-full flex justify-between font-light"><strong>Author:</strong> {selectedOrder.Author}</p>
-                                <p className="w-full flex justify-between font-light"><strong>Price:</strong> {selectedOrder.Price}</p>
-                                <p className="w-full flex justify-between font-light"><strong>Location:</strong> {selectedOrder.Location}</p>
-                                <p className="w-full flex justify-between font-light"><strong>Status:</strong> {selectedOrder.Status}</p>
-                                <p className="w-full flex justify-between font-light"><strong>Course Link:</strong> <a href={selectedOrder?.course_URL} className="text-[#6babeb]">click here to access course link</a></p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong >Course Name:</strong> {selectedOrder.CourseName}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Author:</strong> {selectedOrder.Author}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Price:</strong> {selectedOrder.Price}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Location:</strong> {selectedOrder.Location}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder.Status}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Course Link:</strong> <a href={selectedOrder?.course_URL} className="text-[#6babeb]">click here to access course link</a></p>
                             </div>
                             <div>
                                 <p>Description: </p>
@@ -152,12 +159,6 @@ const Courses = () => {
                                     className="px-4 py-2 bg-red-500 text-white rounded"
                                 >
                                     Reject
-                                </button>
-                                <button
-                                    onClick={closeModal}
-                                    className="px-4 py-2 bg-gray-300 text-black rounded"
-                                >
-                                    Close
                                 </button>
                             </div>
                         </div>

@@ -25,3 +25,13 @@ export const approveCourse = async (id: string) => {
         },
     })
 }
+
+
+export const messageMerchant = async (id: string) => {
+    const adminToken = localStorage.getItem(VITE_TOKEN);
+    return await axios.post(`${VITE_ENDPOINT}/admins/message/${id}`, {
+        headers: {
+            'Authorization': `Bearer ${adminToken}`,
+        },
+    })
+}

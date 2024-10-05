@@ -12,3 +12,20 @@ export const getAllCourses = async () => {
         },
     })
 }
+export const getAllUser = async () => {
+    const adminToken = localStorage.getItem(VITE_TOKEN);
+    return await axios.get(`${VITE_ENDPOINT}/users`, {
+        headers: {
+            'Authorization': `Bearer ${adminToken}`,
+        },
+    })
+}
+
+export const getAllProduct = async () => {
+    const adminToken = localStorage.getItem(VITE_TOKEN);
+    return await axios.get(`${VITE_ENDPOINT}/products`, {
+        headers: {
+            'Authorization': `Bearer ${adminToken}`,
+        },
+    })
+}

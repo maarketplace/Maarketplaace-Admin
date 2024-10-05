@@ -7,7 +7,6 @@ import { IErrorResponse } from "../../interface/ErrorInterface";
 import { useNavigate } from "react-router-dom";
 import { approveCourse, messageMerchantByEmail } from "../../api/mutation";
 import toast from "react-hot-toast";
-import './Courses.css'
 import { FaTimes } from "react-icons/fa";
 const Courses = () => {
     const navigate = useNavigate()

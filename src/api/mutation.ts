@@ -19,7 +19,7 @@ export const enable2fa = async (email: string | null) => {
 
 export const approveCourse = async (id: string) => {
     const adminToken = localStorage.getItem(VITE_TOKEN);
-    return await axios.post(`${VITE_ENDPOINT}/courses?id=${id}`, {
+    return await axios.post(`${VITE_ENDPOINT}/courses?id=${id}`, {}, {
         headers: {
             'Authorization': `Bearer ${adminToken}`,
         },
@@ -27,11 +27,11 @@ export const approveCourse = async (id: string) => {
 }
 
 
-export const messageMerchant = async (id: string) => {
+export const messageMerchantByEmail = async (id: string, content: string) => {
     const adminToken = localStorage.getItem(VITE_TOKEN);
-    return await axios.post(`${VITE_ENDPOINT}/admins/message/${id}`, {
+    return await axios.post(`${VITE_ENDPOINT}/admins/message/${id}`, {content}, {
         headers: {
             'Authorization': `Bearer ${adminToken}`,
         },
-    })
+    });
 }

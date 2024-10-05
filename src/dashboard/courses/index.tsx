@@ -1,11 +1,11 @@
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { useEffect, useState } from "react";
 import { getAllCourses } from "../../api/query";
 import Table from "../../utils/Table";
 import { ICourse } from "../../interface/CourseInterface";
 import { IErrorResponse } from "../../interface/ErrorInterface";
 import { useNavigate } from "react-router-dom";
-import { approveCourse } from "../../api/mutation";
+import { approveCourse, messageMerchantByEmail } from "../../api/mutation";
 import toast from "react-hot-toast";
 import './Courses.css'
 import { FaTimes } from "react-icons/fa";
@@ -15,6 +15,7 @@ const Courses = () => {
     const [statusFilter, setStatusFilter] = useState<string>("All");
     const [selectedOrder, setSelectedOrder] = useState<ICourse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [content, setContent] = useState<string>("");
     const { data, isLoading, isError } = useQuery(['getAllCourses'], getAllCourses, {
         onError: (err: IErrorResponse) => {
             if (err.response.data.message == "Token expired login again") {
@@ -24,7 +25,24 @@ const Courses = () => {
             }
         }
     });
-
+    const { mutate: messageMerchantMutate, isLoading: messageMerchantLoading } = useMutation(["messageMerchant"],
+        (params: { id: string; data: string }) => messageMerchantByEmail(params.id, params.data),
+        {
+            onSuccess: () => {
+                toast.success("Message sent to merchant")
+            },
+            onError: () => {
+                toast.error("Failed to send message to merchant")
+            }
+        })
+    const { mutate: approveMutate, isLoading: approveLoading } = useMutation(['approveCourse'], approveCourse, {
+        onSuccess: () => {
+            toast.success("Course approved successfully")
+        },
+        onError: (err: IErrorResponse) => {
+            toast.error(err.response.data.message)
+        }
+    })
     useEffect(() => {
         if (data?.data?.data) {
             const coursesObject = data.data.data;
@@ -72,6 +90,7 @@ const Courses = () => {
     const handleRowClick = (row: ICourse) => {
         setSelectedOrder(row);
         setIsModalOpen(true);
+        console.log(selectedOrder)
     };
 
     const closeModal = () => {
@@ -83,18 +102,21 @@ const Courses = () => {
         console.log("Rejected", selectedOrder);
         closeModal();
     };
+
     const handleApprove = async () => {
         if (!selectedOrder) return;
         console.log('Selected Order:', selectedOrder);
-        try {
-            await approveCourse(selectedOrder?.id);
-            toast.success("Course approved successfully");
-            closeModal();
-        } catch (error) {
-            toast.error("Failed to approve course");
-        }
+        approveMutate(selectedOrder?.id)
     };
-
+    const handleMessageMerchant = () => {
+        if (!selectedOrder) return;
+        if (!content.trim()) {
+            toast.error("Please enter a message before sending.");
+            return;
+        }
+        messageMerchantMutate({ id: selectedOrder.id, data: content });
+        setContent("");
+    };
     return (
         <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px]">
             <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
@@ -120,23 +142,23 @@ const Courses = () => {
 
                 {/* Modal for approving/rejecting courses */}
                 {isModalOpen && selectedOrder && (
-                    <div className="fixed h-[100vh] inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 overflow-scroll flex-col">
-                        <div className="bg-white h-[90%] p-6 rounded-md w-[90%] max-w-md flex flex-col gap-[10px] overflow-scroll relative">
+                    <div className="fixed h-[100vh] inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center z-50 overflow-scroll flex-col scrollbar-hide">
+                        <div className="bg-white h-[90%] p-6 rounded-md w-[90%] max-w-md flex flex-col gap-[10px] overflow-scroll relative scrollbar-hide">
                             <button
                                 onClick={closeModal}
                                 className="px-4 py-2 text-black rounded fixed  right-8"
                             >
-                                <FaTimes />
+                                <FaTimes className="text-[14px]" />
                             </button>
                             <div>
-                                <img src={selectedOrder.course_image} alt="" />
+                                <img src={selectedOrder?.course_image} alt="" />
                             </div>
                             <div>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong >Course Name:</strong> {selectedOrder.CourseName}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Author:</strong> {selectedOrder.Author}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Price:</strong> {selectedOrder.Price}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Location:</strong> {selectedOrder.Location}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder.Status}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong >Course Name:</strong> {selectedOrder?.CourseName}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Author:</strong> {selectedOrder?.Author}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Price:</strong> {selectedOrder?.Price}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Location:</strong> {selectedOrder?.Location}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder?.Status}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Course Link:</strong> <a href={selectedOrder?.course_URL} className="text-[#6babeb]">click here to access course link</a></p>
                             </div>
                             <div>
@@ -150,15 +172,31 @@ const Courses = () => {
                             <div className="flex justify-end mt-4 gap-4">
                                 <button
                                     onClick={handleApprove}
-                                    className="px-4 py-2 bg-green-500 text-white rounded"
+                                    className="px-4 py-2 border-[#FFC300] border text-black rounded"
+                                    disabled={approveLoading}
                                 >
-                                    Approve
+                                    {approveLoading ? "Approving..." : "Approve"}
                                 </button>
                                 <button
                                     onClick={handleReject}
                                     className="px-4 py-2 bg-red-500 text-white rounded"
                                 >
                                     Reject
+                                </button>
+                            </div>
+                            <div className="flex flex-col gap-2">
+                                <textarea
+                                    placeholder="Message"
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    className="border border-gray-300 rounded p-2 outline-none text-[14px]"
+                                />
+                                <button
+                                    onClick={handleMessageMerchant}
+                                    className="bg-[#FFC300] text-black rounded px-4 py-2 text-[14px]"
+                                    disabled={messageMerchantLoading}
+                                >
+                                    {messageMerchantLoading ? "Sending..." : "Send Message"}
                                 </button>
                             </div>
                         </div>

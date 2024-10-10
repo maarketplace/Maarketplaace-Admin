@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { approveCourse, messageMerchantByEmail } from "../../api/mutation";
 import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+
+
 const Courses = () => {
     const navigate = useNavigate()
     const [allCourses, setAllCourses] = useState<ICourse[]>([]);
@@ -15,6 +17,8 @@ const Courses = () => {
     const [selectedOrder, setSelectedOrder] = useState<ICourse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [content, setContent] = useState<string>("");
+
+    
     const { data, isLoading, isError } = useQuery(['getAllCourses'], getAllCourses, {
         onError: (err: IErrorResponse) => {
             if (err.response.data.message == "Token expired login again") {
@@ -63,28 +67,34 @@ const Courses = () => {
         "Status",
         "Date",
     ];
+    const formattedData = allCourses.map((course: ICourse) => {
 
-    const formattedData = allCourses.map((course: ICourse) => ({
-        "CourseName": course?.course_name || "N/A",
-        "Author": course?.author || "N/A",
-        "Price": course?.payment_price || "N/A",
-        "Category": course?.course_category,
-        "Location": course?.course_location || "N/A",
-        "Status": course?.status || "N/A",
-        "Date": new Date(course?.created_at).toLocaleDateString(),
-        "id": course?.course_id,
-        "course_URL": course?.course_URL,
-        "course_image": course?.course_image,
-        "course_description": course?.course_description,
-        "what_to_expect": course?.what_to_expect,
-    }));
 
+        return {
+            "CourseName": course?.course_name || "N/A",
+            "Author": course?.author || "N/A",
+            "Price": course?.payment_price || "N/A",
+            "Category": course?.course_category,
+            "Location": course?.course_location || "N/A",
+            "Status": course?.status || "N/A", 
+            "RawStatus": course?.status || "N/A",
+            "Date": new Date(course?.created_at).toLocaleDateString(),
+            "id": course?.course_id,
+            "course_URL": course?.course_URL,
+            "course_image": course?.course_image,
+            "course_description": course?.course_description,
+            "what_to_expect": course?.what_to_expect,
+        };
+    });
+
+    // Now use "RawStatus" for filtering
     const filteredOrders = formattedData.filter(order => {
         if (statusFilter === "All") {
             return true;
         }
-        return order.Status === statusFilter;
+        return order.Status === statusFilter; // Compare using RawStatus
     });
+
 
     const handleRowClick = (row: ICourse) => {
         setSelectedOrder(row);
@@ -116,6 +126,28 @@ const Courses = () => {
         messageMerchantMutate({ id: selectedOrder.id, data: content });
         setContent("");
     };
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case "Approved":
+                return "text-green-500";
+            case "Review":
+                return "text-orange-500";
+            case "Rejected":
+                return "text-red-500";
+            case "Canceled":
+                return "text-gray-500";
+            default:
+                return "text-black";
+        }
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const renderTableCell = (key: keyof typeof formattedData[0], value: any) => {
+        if (key === "Status") {
+            return <span className={getStatusColor(value)}>{value}</span>;
+        }
+        return value;
+    };
     return (
         <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px]">
             <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
@@ -133,9 +165,10 @@ const Courses = () => {
                     </select>
                 </div>
                 <Table
-                    data={filteredOrders as ICourse[]}
+                    data={filteredOrders as unknown as ICourse[]}
                     columns={columns}
                     loading={isLoading}
+                    renderCell={(column: keyof typeof formattedData[0], value: unknown) => renderTableCell(column, value)}
                     onRowClick={(row: ICourse) => handleRowClick(row)}
                 />
 

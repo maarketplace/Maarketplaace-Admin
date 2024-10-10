@@ -27,4 +27,5 @@ export interface ICourse {
     updated_at: string; 
     Category: string;
     Date: string;
+    RawStatus: string
 }

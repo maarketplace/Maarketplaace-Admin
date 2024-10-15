@@ -25,7 +25,8 @@
       position: relative;
       width: 100%;
       font-weight: 300;
-         background-color: rgba(229, 229, 229, 0.624);
+      background-color: rgba(39, 39, 39, 0.624);
+
     }
   
     td:before {
@@ -44,6 +45,7 @@
     td {
       padding: 8px;
       font-size: 12px;
+      border: none;
     }
   
     button {

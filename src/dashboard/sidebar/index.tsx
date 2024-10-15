@@ -2,7 +2,7 @@ import { FiLogOut } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { useNavigate, useLocation } from "react-router-dom"; 
 import { LuUsers } from "react-icons/lu";
-import { BsCart } from "react-icons/bs";
+import { BsCart, BsHandbag } from "react-icons/bs";
 import { MdOutlineLibraryBooks } from "react-icons/md";
 
 interface SideBarProps {
@@ -62,6 +62,13 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                 >
                     <BsCart className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Products</p>
+                </span>
+                <span
+                    className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/orders')}`}
+                    onClick={() => handleNavigation('/admin/orders')}
+                >
+                    <BsHandbag className="w-[20%] h-[15px]" />
+                    <p className="text-[15px] w-[80%]">Orders</p>
                 </span>
                 <span
                     className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]"

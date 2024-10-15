@@ -2,12 +2,14 @@ import { useMutation, useQuery } from "react-query";
 import { useEffect, useState } from "react";
 import { getAllCourses } from "../../api/query";
 import Table from "../../utils/Table";
-import { ICourse } from "../../interface/CourseInterface";
+import { ICourse, IFormattedCourse } from "../../interface/CourseInterface";
 import { IErrorResponse } from "../../interface/ErrorInterface";
 import { useNavigate } from "react-router-dom";
 import { approveCourse, messageMerchantByEmail } from "../../api/mutation";
 import toast from "react-hot-toast";
 import { FaTimes } from "react-icons/fa";
+
+
 const Courses = () => {
     const navigate = useNavigate()
     const [allCourses, setAllCourses] = useState<ICourse[]>([]);
@@ -15,6 +17,8 @@ const Courses = () => {
     const [selectedOrder, setSelectedOrder] = useState<ICourse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [content, setContent] = useState<string>("");
+
+
     const { data, isLoading, isError } = useQuery(['getAllCourses'], getAllCourses, {
         onError: (err: IErrorResponse) => {
             if (err.response.data.message == "Token expired login again") {
@@ -60,31 +64,36 @@ const Courses = () => {
         "Price",
         "Category",
         "Location",
-        "Status",
+        "status",
         "Date",
     ];
 
-    const formattedData = allCourses.map((course: ICourse) => ({
-        "CourseName": course?.course_name || "N/A",
-        "Author": course?.author || "N/A",
-        "Price": course?.payment_price || "N/A",
-        "Category": course?.course_category,
-        "Location": course?.course_location || "N/A",
-        "Status": course?.status || "N/A",
-        "Date": new Date(course?.created_at).toLocaleDateString(),
-        "id": course?.course_id,
-        "course_URL": course?.course_URL,
-        "course_image": course?.course_image,
-        "course_description": course?.course_description,
-        "what_to_expect": course?.what_to_expect,
-    }));
+    const formattedData: IFormattedCourse[] = allCourses.map((course: ICourse) => {
+        return {
+            CourseName: course?.course_name || "N/A",
+            Author: course?.author || "N/A",
+            Price: course?.payment_price || "N/A",
+            Category: course?.course_category,
+            Location: course?.course_location || "N/A",
+            status: course?.status || "N/A",
+            RawStatus: course?.status || "N/A",
+            Date: new Date(course?.created_at).toLocaleDateString(),
+            id: course?.course_id,
+            course_URL: course?.course_URL,
+            course_image: course?.course_image,
+            course_description: course?.course_description,
+            what_to_expect: course?.what_to_expect,
+        };
+    });
 
+    // Now use "RawStatus" for filtering
     const filteredOrders = formattedData.filter(order => {
         if (statusFilter === "All") {
             return true;
         }
-        return order.Status === statusFilter;
+        return order.status === statusFilter; // Compare using RawStatus
     });
+
 
     const handleRowClick = (row: ICourse) => {
         setSelectedOrder(row);
@@ -116,6 +125,28 @@ const Courses = () => {
         messageMerchantMutate({ id: selectedOrder.id, data: content });
         setContent("");
     };
+    const getStatusColor = (status: string) => {
+        switch (status) {
+            case "Approved":
+                return "text-green-500";
+            case "Review":
+                return "text-orange-500";
+            case "Rejected":
+                return "text-red-500";
+            case "Canceled":
+                return "text-gray-500";
+            default:
+                return "text-black";
+        }
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const renderTableCell = (key: keyof typeof formattedData[0], value: any) => {
+        if (key === "status") {
+            return <span className={getStatusColor(value)}>{value}</span>;
+        }
+        return value;
+    };
     return (
         <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px]">
             <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
@@ -134,8 +165,9 @@ const Courses = () => {
                 </div>
                 <Table
                     data={filteredOrders as ICourse[]}
-                    columns={columns}
+                    columns={columns as (keyof IFormattedCourse)[]}
                     loading={isLoading}
+                    renderCell={(column: keyof ICourse, value: unknown) => renderTableCell(column, value)}
                     onRowClick={(row: ICourse) => handleRowClick(row)}
                 />
 
@@ -157,7 +189,7 @@ const Courses = () => {
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Author:</strong> {selectedOrder?.Author}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Price:</strong> {selectedOrder?.Price}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Location:</strong> {selectedOrder?.Location}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder?.Status}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder?.status}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Course Link:</strong> <a href={selectedOrder?.course_URL} className="text-[#6babeb]">click here to access course link</a></p>
                             </div>
                             <div>

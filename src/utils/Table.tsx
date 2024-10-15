@@ -4,19 +4,21 @@ import './Table.css'
 interface TableProps<T> {
     columns: Array<keyof T>;
     data: T[];
-    loading?: boolean; // New loading prop
+    loading?: boolean;
     emptyMessage?: string;
     rowsPerPage?: number;
     onRowClick?: (row: T) => void;
+    renderCell?: (column: keyof T, value: unknown) => JSX.Element | string;
 }
 
 const Table = <T extends object>({
     columns,
     data,
-    loading = false, // Default loading to false
+    loading = false,
     emptyMessage = "No data available",
     rowsPerPage = 10,
     onRowClick,
+    renderCell,
 }: TableProps<T>) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [searchQuery, setSearchQuery] = useState("");
@@ -73,7 +75,7 @@ const Table = <T extends object>({
                     value={searchQuery}
                     onChange={handleSearchChange}
                     className="px-4 py-2 border rounded w-full outline-none"
-                    disabled={loading} // Disable search when loading
+                    disabled={loading}
                 />
             </div>
 
@@ -98,13 +100,14 @@ const Table = <T extends object>({
                     ) : currentData.length > 0 ? (
                         <tbody>
                             {currentData.map((row, rowIndex) => {
-                                const shouldHaveGreyBackground = 
-                                    rowIndex % 2 === 0;
+                                const shouldHaveGreyBackground = rowIndex % 2 === 0;
                                 return (
                                     <tr
                                         key={rowIndex}
                                         className={`hover:bg-gray-300 cursor-pointer dark:bg-[white] ${
-                                            shouldHaveGreyBackground ? "bg-gray-500 dark:bg-none " : "dark:bg-grey-400"
+                                            shouldHaveGreyBackground
+                                                ? "bg-gray-500 dark:bg-none"
+                                                : "dark:bg-grey-400"
                                         }`}
                                         onClick={() => onRowClick?.(row)}
                                     >
@@ -114,7 +117,9 @@ const Table = <T extends object>({
                                                 className="px-4 py-2 text-sm border-b truncate"
                                                 data-label={String(column)}
                                             >
-                                                {String(row[column]).slice(0, 32)}
+                                                {renderCell
+                                                    ? renderCell(column, row[column]) // Use custom cell rendering
+                                                    : String(row[column]).slice(0, 32)}
                                             </td>
                                         ))}
                                     </tr>

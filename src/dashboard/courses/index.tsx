@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "react-query";
 import { useEffect, useState } from "react";
 import { getAllCourses } from "../../api/query";
 import Table from "../../utils/Table";
-import { ICourse } from "../../interface/CourseInterface";
+import { ICourse, IFormattedCourse } from "../../interface/CourseInterface";
 import { IErrorResponse } from "../../interface/ErrorInterface";
 import { useNavigate } from "react-router-dom";
 import { approveCourse, messageMerchantByEmail } from "../../api/mutation";
@@ -18,7 +18,7 @@ const Courses = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [content, setContent] = useState<string>("");
 
-    
+
     const { data, isLoading, isError } = useQuery(['getAllCourses'], getAllCourses, {
         onError: (err: IErrorResponse) => {
             if (err.response.data.message == "Token expired login again") {
@@ -64,26 +64,25 @@ const Courses = () => {
         "Price",
         "Category",
         "Location",
-        "Status",
+        "status",
         "Date",
     ];
-    const formattedData = allCourses.map((course: ICourse) => {
 
-
+    const formattedData: IFormattedCourse[] = allCourses.map((course: ICourse) => {
         return {
-            "CourseName": course?.course_name || "N/A",
-            "Author": course?.author || "N/A",
-            "Price": course?.payment_price || "N/A",
-            "Category": course?.course_category,
-            "Location": course?.course_location || "N/A",
-            "Status": course?.status || "N/A", 
-            "RawStatus": course?.status || "N/A",
-            "Date": new Date(course?.created_at).toLocaleDateString(),
-            "id": course?.course_id,
-            "course_URL": course?.course_URL,
-            "course_image": course?.course_image,
-            "course_description": course?.course_description,
-            "what_to_expect": course?.what_to_expect,
+            CourseName: course?.course_name || "N/A",
+            Author: course?.author || "N/A",
+            Price: course?.payment_price || "N/A",
+            Category: course?.course_category,
+            Location: course?.course_location || "N/A",
+            status: course?.status || "N/A",
+            RawStatus: course?.status || "N/A",
+            Date: new Date(course?.created_at).toLocaleDateString(),
+            id: course?.course_id,
+            course_URL: course?.course_URL,
+            course_image: course?.course_image,
+            course_description: course?.course_description,
+            what_to_expect: course?.what_to_expect,
         };
     });
 
@@ -92,7 +91,7 @@ const Courses = () => {
         if (statusFilter === "All") {
             return true;
         }
-        return order.Status === statusFilter; // Compare using RawStatus
+        return order.status === statusFilter; // Compare using RawStatus
     });
 
 
@@ -143,7 +142,7 @@ const Courses = () => {
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const renderTableCell = (key: keyof typeof formattedData[0], value: any) => {
-        if (key === "Status") {
+        if (key === "status") {
             return <span className={getStatusColor(value)}>{value}</span>;
         }
         return value;
@@ -165,10 +164,10 @@ const Courses = () => {
                     </select>
                 </div>
                 <Table
-                    data={filteredOrders as unknown as ICourse[]}
-                    columns={columns}
+                    data={filteredOrders as ICourse[]}
+                    columns={columns as (keyof IFormattedCourse)[]}
                     loading={isLoading}
-                    renderCell={(column: keyof typeof formattedData[0], value: unknown) => renderTableCell(column, value)}
+                    renderCell={(column: keyof ICourse, value: unknown) => renderTableCell(column, value)}
                     onRowClick={(row: ICourse) => handleRowClick(row)}
                 />
 
@@ -190,7 +189,7 @@ const Courses = () => {
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Author:</strong> {selectedOrder?.Author}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Price:</strong> {selectedOrder?.Price}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Location:</strong> {selectedOrder?.Location}</p>
-                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder?.Status}</p>
+                                <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Status:</strong> {selectedOrder?.status}</p>
                                 <p className="w-full flex justify-between font-light max-[650px]:text-[14px]"><strong>Course Link:</strong> <a href={selectedOrder?.course_URL} className="text-[#6babeb]">click here to access course link</a></p>
                             </div>
                             <div>

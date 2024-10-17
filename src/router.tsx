@@ -9,6 +9,7 @@ import Users from "./dashboard/users";
 import Products from "./dashboard/products";
 import Overview from "./dashboard/overview";
 import Order from "./dashboard/order";
+import Merchants from "./dashboard/merchants";
 
 export const MainRoutes = createHashRouter([
   {
@@ -34,6 +35,10 @@ export const MainRoutes = createHashRouter([
       {
         path: '',
         element: <Overview/>
+      },
+      {
+        path: '/admin/merchants',
+        element: <Merchants />
       },
       {
         path: '/admin/courses',

@@ -5,14 +5,21 @@ import { getAdmin } from "../../api/query";
 // import { IErrorResponse } from "../../interface/ErrorInterface";
 import { useEffect, useState } from "react";
 import { IAdminData } from "../../interface/AdminInterface";
+import { IErrorResponse } from "../../interface/ErrorInterface";
+import { useNavigate } from "react-router-dom";
 // import { IoBagHandleOutline } from "react-icons/io5"
 const Overview = () => {
+    const navigate = useNavigate()
     const [admin, setAdmin] = useState<IAdminData | null>(null)
     const {
         data,
     } = useQuery(["getAdmin"], getAdmin, {
-        onError: () => {
+        onError: (err: IErrorResponse) => {
+            if (err?.response?.data?.message == "Token expired login again") {
+                localStorage.clear();
+                navigate('/login')
 
+            }
         }
     });
 

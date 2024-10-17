@@ -43,6 +43,13 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     <p className="text-[15px] w-[80%]">Overview</p>
                 </span>
                 <span
+                    className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/merchants')}`}
+                    onClick={() => handleNavigation('/admin/merchants')}
+                >
+                    <LuUsers className="w-[20%] h-[15px]" />
+                    <p className="text-[15px] w-[80%]">Merchants</p>
+                </span>
+                <span
                     className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/courses')}`}
                     onClick={() => handleNavigation('/admin/courses')}
                 >
@@ -69,6 +76,21 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                 >
                     <BsHandbag className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Orders</p>
+                </span>
+                <span
+                    className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/orders')}`}
+                    onClick={() => handleNavigation('/admin/orders')}
+                >
+                    <BsHandbag className="w-[20%] h-[15px]" />
+                    <p className="text-[15px] w-[80%]">Trnasaction</p>
+                </span>
+                <span
+                    className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]"
+                >
+                </span>
+                <span
+                    className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]"
+                >
                 </span>
                 <span
                     className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]"

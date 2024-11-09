@@ -38,5 +38,5 @@ export const messageMerchantByEmail = async (id: string, content: string) => {
 
 export const AdminResetPassword = async (data: { code: string | undefined, password: string }) => {
     const { code, password } = data
-    return await axios.patch(`${VITE_ENDPOINT}/change-password/${code}`, { password })
+    return await axios.patch(`${VITE_ENDPOINT}/admins/change-password/${code}`, { password })
 }

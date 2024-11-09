@@ -10,6 +10,7 @@ import Products from "./dashboard/products";
 import Overview from "./dashboard/overview";
 import Order from "./dashboard/order";
 import Merchants from "./dashboard/merchants";
+import ResetPassword from "./auth/changePassword";
 
 export const MainRoutes = createHashRouter([
   {
@@ -29,12 +30,16 @@ export const MainRoutes = createHashRouter([
     element: <Enable2fa />,
   },
   {
+    path: "change-password/:code",
+    element: <ResetPassword />,
+  },
+  {
     path: "admin",
     element: <Dashboard />,
     children: [
       {
         path: '',
-        element: <Overview/>
+        element: <Overview />
       },
       {
         path: '/admin/merchants',

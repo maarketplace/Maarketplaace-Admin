@@ -114,7 +114,7 @@ const Table = <T extends object>({
                                         {columns.map((column) => (
                                             <td
                                                 key={String(column)}
-                                                className="px-4 py-4 text-sm border-b truncate"
+                                                className="px-2 py-4 text-sm border-b truncate"
                                                 data-label={String(column)}
                                             >
                                                 {renderCell

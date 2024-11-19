@@ -82,7 +82,7 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     onClick={() => handleNavigation('/admin/orders')}
                 >
                     <BsHandbag className="w-[20%] h-[15px]" />
-                    <p className="text-[15px] w-[80%]">Trnasaction</p>
+                    <p className="text-[15px] w-[80%]">Transaction</p>
                 </span>
                 <span
                     className="flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%]"

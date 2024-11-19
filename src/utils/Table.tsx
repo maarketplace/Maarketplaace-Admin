@@ -114,7 +114,7 @@ const Table = <T extends object>({
                                         {columns.map((column) => (
                                             <td
                                                 key={String(column)}
-                                                className="px-4 py-2 text-sm border-b truncate"
+                                                className="px-4 py-4 text-sm border-b truncate"
                                                 data-label={String(column)}
                                             >
                                                 {renderCell
@@ -141,7 +141,7 @@ const Table = <T extends object>({
                 </table>
             </div>
 
-            <div className="flex justify-between items-center mt-[20px] max-[650px]:p-[10px]">
+            <div className="flex justify-between items-center mt-[20px] mb-[20px] max-[650px]:p-[10px]">
                 <span className="max-[650px]:text-[12px]">
                     Showing {currentPage} of {totalPages}
                 </span>

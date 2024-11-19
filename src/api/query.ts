@@ -48,3 +48,12 @@ export const getAllOrder = async () => {
         },
     })
 }
+
+export const getMerchant = async () => {
+    const adminToken = localStorage.getItem(VITE_TOKEN);
+    return await axios.get(`${VITE_ENDPOINT}/merchants`, {
+        headers: {
+            'Authorization': `Bearer ${adminToken}`,
+        },
+    })
+}

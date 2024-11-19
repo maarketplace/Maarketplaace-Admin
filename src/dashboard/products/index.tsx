@@ -55,7 +55,8 @@ const Products = () => {
         return order.Status === statusFilter;
     });
     return (
-        <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px]">
+        <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px] flex-col gap-[20px]">
+            <p className="w-[100%] text-[20px] text-[lightgrey]">All Courses</p>
             <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
                 <div className="flex justify-between items-center mb-4 ">
                     <select

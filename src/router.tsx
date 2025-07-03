@@ -11,6 +11,7 @@ import Overview from "./dashboard/overview";
 import Order from "./dashboard/order";
 import Merchants from "./dashboard/merchants";
 import ResetPassword from "./auth/changePassword";
+import Transactions from "./dashboard/transactions";
 
 export const MainRoutes = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ export const MainRoutes = createBrowserRouter([
       {
         path: '/admin/orders',
         element: <Order />
+      },
+      {
+        path: '/admin/transactions',
+        element: <Transactions />
       },
     ]
   },

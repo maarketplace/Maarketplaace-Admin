@@ -28,8 +28,8 @@ function ResetPassword() {
         }
     });
 
-    const onSubmit: SubmitHandler<ResetPasswordInterface> = ({ password }) => {
-        mutate({ code, password })
+    const onSubmit: SubmitHandler<ResetPasswordInterface> = ({ password, email }) => {
+        mutate({ code, password , email})
     };
     const handleResetSubmit = () => {
         handleSubmit(onSubmit)();
@@ -39,6 +39,18 @@ function ResetPassword() {
             <div className='w-[45%] bg-[white] rounded-lg flex items-center justify-center flex-col gap-[20px] max-[650px]:w-[100%] p-5 dark:bg-black dark:text-[white]'>
                 <img src="MARKET.svg" alt="" className=" w-[100px] max-[650px]:w-[80px]" />
                 <h3 className='text-center max-[650px]:text-[12px] text-wrap'>Enter a new password to reset your password</h3>
+                <div className=" w-[80%] flex flex-col gap-[10px] max-[650px]:w-[100%]">
+                    <label >Email Address</label>
+                    <input
+                        required
+                        minLength={8}
+                        type="email"
+                        placeholder="johndoe@gmail.com"
+                        className="w-[100%] h-[50px] border border-[#999BA1] p-[10px] outline-none max-[650px]:h-[50px] bg-transparent"
+                        {...register('email')}
+
+                    />
+                </div>
                 <div className=" w-[80%] flex flex-col gap-[10px] max-[650px]:w-[100%]">
                     <label >New Password</label>
                     <input

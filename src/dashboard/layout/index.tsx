@@ -10,15 +10,14 @@ const Layout = () => {
     }
 };
 
-// Add event listener for window resize
 useEffect(() => {
     window.addEventListener('resize', handleResize);
     return () => {
-        window.removeEventListener('resize', handleResize);  // Cleanup listener on component unmount
+        window.removeEventListener('resize', handleResize);  
     };
 }, []);
   return (
-    <div className="h-[100vh] w-[100%] flex">
+    <div className="h-[100vh] w-[100%] flex justify-between">
       <div className="w-[15%] h-[100%] flex flex-col items-center max-[650px]:hidden">
         <div className="w-full h-[10%] flex items-center p-[10px] gap-1">
           <img src="/MARKET.svg" alt="" className="w-[40px]" />
@@ -28,7 +27,7 @@ useEffect(() => {
           <SideBar />
         </div>
       </div>
-      <div className=" w-[85%] h-full flex justify-center flex-col max-[650px]:w-[100%]">
+      <div className=" w-[82%] h-full flex justify-center flex-col max-[650px]:w-[100%]">
         <div className="w-[100%] h-[10%] bg-[#FFc300] rounded-bl-[16px]">
           <span className="w-[30%] h-[100%] max-[650px]:w-[50%] flex items-center">
             <HiMenuAlt2 className=" text-[30px] hidden max-[650px]:flex" onClick={() => setShowSidebar(!showSideBar)} />
@@ -43,7 +42,7 @@ useEffect(() => {
             </div>
           }
         </div>
-        <div className="w-[100%] h-[90%] flex justify-center overflow-scroll ">
+        <div className="w-[100%] h-[90%] flex justify-center overflow-scroll p-0 ">
           <Outlet />
         </div>
       </div>

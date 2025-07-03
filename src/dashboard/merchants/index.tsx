@@ -61,7 +61,7 @@ const Merchants = () => {
   }));
 
   return (
-    <div className="w-[95%] h-[90%] max-[650px]:w-full flex items-center justify-center mt-[50px] max-[650px]:mt-[30px] max-[650px]:p-[10px] flex-col gap-[20px]">
+    <div className="w-[100%] h-[90%] max-[650px]:w-full flex items-center justify-start mt-[50px] pr-4 max-[650px]:mt-[30px] max-[650px]:p-[10px] flex-col gap-[20px]">
       <p className="w-[100%] text-[20px] text-[lightgrey]">All Merchant</p>
       <div className="w-[100%] h-[100%] flex flex-col gap-[20px]">
         <Table

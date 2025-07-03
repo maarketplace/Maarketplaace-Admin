@@ -35,6 +35,8 @@ export const ResetPasswordSchema = yup.object(
             .string()
             .oneOf([yup.ref('password')], 'Passwords must match')
             .required('Confirm Password is required'),
+            
+        email: yup.string().email("Email must be a valid email format").required("Email is required"),
     }
 )
     .required()

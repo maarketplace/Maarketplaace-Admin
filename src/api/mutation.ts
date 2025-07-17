@@ -26,5 +26,5 @@ export const messageMerchantByEmail = async (id: string, content: string) => {
 
 export const AdminResetPassword = async (data: { code: string | undefined, password: string, email: string }) => {
     const { code, password } = data
-    return await axiosInstance.patch(`/admins/change-password/${code}`, { password })
+    return await axiosInstance.patch(`/admins/change-password/${code}`, { password, email: data.email });
 }

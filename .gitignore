@@ -24,7 +24,7 @@ dist-ssr
 *.sw?
 .env
 .env.staging
-.env.production
+.env.prod
 .env.development
 .env.local
 .env.test

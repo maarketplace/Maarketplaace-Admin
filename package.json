@@ -9,8 +9,11 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "preview:staging": "vite preview --mode staging",
+    "preview:prod": "vite preview --mode prod",
     "dev:staging": "vite --mode staging",
-    "build:staging": "vite build --mode staging"
+    "dev:prod": "vite --mode prod",
+    "build:staging": "vite build --mode staging",
+    "build:prod": "vite build --mode prod"
   },
   "dependencies": {
     "@emoji-mart/data": "^1.1.2",

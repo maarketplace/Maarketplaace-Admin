@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useEffect, useState } from "react";
 import { getAllCourses } from "../../api/query";
 import Table from "../../utils/Table";
@@ -17,7 +17,7 @@ const Courses = () => {
     const [selectedOrder, setSelectedOrder] = useState<ICourse | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [content, setContent] = useState<string>("");
-
+    const queryClient = useQueryClient()
 
     const { data, isLoading, isError } = useQuery(['getAllCourses'], getAllCourses, {
         onError: (err: IErrorResponse) => {
@@ -41,6 +41,9 @@ const Courses = () => {
     const { mutate: approveMutate, isLoading: approveLoading } = useMutation(['approveCourse'], approveCourse, {
         onSuccess: () => {
             toast.success("Course approved successfully")
+            queryClient.invalidateQueries(['getAllCourses']);
+            setIsModalOpen(false);
+            setSelectedOrder(null);
         },
         onError: (err: IErrorResponse) => {
             toast.error(err.response.data.message)

@@ -12,6 +12,7 @@ import Order from "./dashboard/order";
 import Merchants from "./dashboard/merchants";
 import ResetPassword from "./auth/changePassword";
 import Transactions from "./dashboard/transactions";
+import ProductView from "./dashboard/productView";
 
 export const MainRoutes = createBrowserRouter([
   {
@@ -39,33 +40,37 @@ export const MainRoutes = createBrowserRouter([
     element: <Dashboard />,
     children: [
       {
-        path: '',
-        element: <Overview />
+        path: "",
+        element: <Overview />,
       },
       {
-        path: '/admin/merchants',
-        element: <Merchants />
+        path: "/admin/merchants",
+        element: <Merchants />,
       },
       {
-        path: '/admin/courses',
-        element: <Courses />
+        path: "/admin/courses",
+        element: <Courses />,
       },
       {
-        path: '/admin/users',
-        element: <Users />
+        path: "/admin/users",
+        element: <Users />,
       },
       {
-        path: '/admin/products',
-        element: <Products />
+        path: "/admin/products",
+        element: <Products />,
       },
       {
-        path: '/admin/orders',
-        element: <Order />
+        path: "/admin/products/:id",
+        element: <ProductView />,
       },
       {
-        path: '/admin/transactions',
-        element: <Transactions />
+        path: "/admin/orders",
+        element: <Order />,
       },
-    ]
+      {
+        path: "/admin/transactions",
+        element: <Transactions />,
+      },
+    ],
   },
 ]);

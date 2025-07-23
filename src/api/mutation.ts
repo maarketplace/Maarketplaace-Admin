@@ -1,42 +1,30 @@
 
-import axios from "axios";
+import axiosInstance from "./axiosInstance";
 import { ILoginInterface, IVerify2fa } from "../interface/LoginInterface";
 
-const { VITE_ENDPOINT } = import.meta.env;
-const { VITE_TOKEN } = import.meta.env;
 export const adminLogin = async (data: ILoginInterface) => {
-    return await axios.post(`${VITE_ENDPOINT}/admins/login`, data)
+    return await axiosInstance.post(`/admins/login`, data)
 };
 
 export const verify2fa = async (data: IVerify2fa, email: string | null) => {
-    return await axios.patch(`${VITE_ENDPOINT}/admins/2fa?email=${email}`, {
+    return await axiosInstance.patch(`/admins/2fa?email=${email}`, {
         token: data.token
     });
 };
 export const enable2fa = async (email: string | null) => {
-    return await axios.post(`${VITE_ENDPOINT}/admins/2fa?email=${email}`);
+    return await axiosInstance.post(`/admins/2fa?email=${email}`);
 };
 
 export const approveCourse = async (id: string) => {
-    const adminToken = localStorage.getItem(VITE_TOKEN);
-    return await axios.post(`${VITE_ENDPOINT}/courses?id=${id}`, {}, {
-        headers: {
-            'Authorization': `Bearer ${adminToken}`,
-        },
-    })
+    return await axiosInstance.post(`/courses?id=${id}`, {},)
 }
 
 
 export const messageMerchantByEmail = async (id: string, content: string) => {
-    const adminToken = localStorage.getItem(VITE_TOKEN);
-    return await axios.post(`${VITE_ENDPOINT}/admins/message/${id}`, {content}, {
-        headers: {
-            'Authorization': `Bearer ${adminToken}`,
-        },
-    });
+    return await axiosInstance.post(`/admins/message/${id}`, {content});
 }
 
-export const AdminResetPassword = async (data: { code: string | undefined, password: string }) => {
+export const AdminResetPassword = async (data: { code: string | undefined, password: string, email: string }) => {
     const { code, password } = data
-    return await axios.patch(`${VITE_ENDPOINT}/admins/change-password/${code}`, { password })
+    return await axiosInstance.patch(`/admins/change-password/${code}`, { password, email: data.email });
 }

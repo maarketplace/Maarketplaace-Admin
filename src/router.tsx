@@ -1,4 +1,4 @@
-import { createHashRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import Login from "./auth/login";
 import Welcome from "./welcome";
 import Verify2fa from "./auth/2fa/Verify2fa";
@@ -11,8 +11,9 @@ import Overview from "./dashboard/overview";
 import Order from "./dashboard/order";
 import Merchants from "./dashboard/merchants";
 import ResetPassword from "./auth/changePassword";
+import Transactions from "./dashboard/transactions";
 
-export const MainRoutes = createHashRouter([
+export const MainRoutes = createBrowserRouter([
   {
     path: "/",
     element: <Welcome />,
@@ -60,6 +61,10 @@ export const MainRoutes = createHashRouter([
       {
         path: '/admin/orders',
         element: <Order />
+      },
+      {
+        path: '/admin/transactions',
+        element: <Transactions />
       },
     ]
   },

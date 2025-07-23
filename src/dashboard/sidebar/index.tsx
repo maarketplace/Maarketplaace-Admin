@@ -78,8 +78,8 @@ const SideBar = ({ setShowSidebar }: SideBarProps) => {
                     <p className="text-[15px] w-[80%]">Orders</p>
                 </span>
                 <span
-                    className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/orders')}`}
-                    onClick={() => handleNavigation('/admin/orders')}
+                    className={`flex items-center gap-[20px] justify-center h-[50px] cursor-pointer w-[90%] ${getActiveClass('/admin/transactions')}`}
+                    onClick={() => handleNavigation('/admin/transactions')}
                 >
                     <BsHandbag className="w-[20%] h-[15px]" />
                     <p className="text-[15px] w-[80%]">Transaction</p>

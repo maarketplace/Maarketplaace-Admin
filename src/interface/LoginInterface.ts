@@ -11,5 +11,6 @@ export interface IVerify2fa {
 export interface ResetPasswordInterface {
     id: string;
     password: string;
+    email: string
     confirmPassword: string;
 }

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { MdOutlineArrowBack } from "react-icons/md";
-import { FiArchive, FiShare2 } from "react-icons/fi";
+import { FiShare2 } from "react-icons/fi";
 import { useState } from "react";
 import Customer from "./customer";
 import { useProductDetails } from "../../hooks/useFetch";
@@ -51,11 +51,6 @@ export default function ProductView() {
           <button className="flex items-center gap-2 border px-3 py-2 rounded-md border-slate-300">
             <FiShare2 className="w-4 h-4 mr-2" />
             Share
-          </button>
-
-          <button className="flex items-center gap-2 border px-3 py-2 rounded-md border-slate-300">
-            <FiArchive className="w-4 h-4 mr-2" />
-            Archive
           </button>
         </div>
       </div>

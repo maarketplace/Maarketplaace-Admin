@@ -23,6 +23,14 @@ export const getAllOrder = async () => {
 export const getMerchant = async () => {
   return await axiosInstance.get(`/merchants`);
 };
-export const getProductDetails = async (product_id: string) => {
-  return await axiosInstance.get(`/products/${product_id}`);
+export const getProductDetails = async (productId: string) => {
+  return await axiosInstance.get(`/products/analysis`, {
+    params: { productId },
+  });
+};
+
+export const getProductCustomer = async (productId: string) => {
+  return await axiosInstance.get(`/products/all/customers/analysis`, {
+    params: { productId },
+  });
 };

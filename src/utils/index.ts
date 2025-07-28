@@ -1,5 +1,5 @@
 export function moneyFormatter(value: number) {
-  return `₦${Math.ceil(value).toLocaleString()}`;
+  return `${Math.ceil(value).toLocaleString()}`;
 }
 
 export function dateFormatter(value: Date) {

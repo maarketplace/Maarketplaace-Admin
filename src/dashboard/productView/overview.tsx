@@ -1,34 +1,37 @@
-import { TbCurrencyNaira } from "react-icons/tb";
+import { TbCoins } from "react-icons/tb";
 import { DetailsCard } from "../../utils/card";
 import { moneyFormatter } from "../../utils";
 import { useProductDetails } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
+import { HiOutlineUser } from "react-icons/hi";
+import { FiShoppingBag } from "react-icons/fi";
+import { capitalizeFirstLetter } from "../../utils/copyable";
 
 const Overview = () => {
   const { id } = useParams();
   const { data, isFetched } = useProductDetails(id as string);
   const product = isFetched && data?.data?.data;
-  console.log(product);
 
   return (
     <div className={`w-full `}>
       <div className="grid grid-cols-4 grid-rows-1 gap-x-4">
         <DetailsCard
-          icon={<TbCurrencyNaira size={20} />}
-          value={12300}
-          label="Total Sales"
+          icon={<TbCoins size={24} />}
+          value={product?.revenue}
+          label="Total Revenue"
         />
 
         <DetailsCard
-          icon={<TbCurrencyNaira size={20} />}
-          value={12300}
+          icon={<FiShoppingBag size={24} />}
+          value={product?.totalPurchase}
           label="Total Sold"
         />
 
         <DetailsCard
-          icon={<TbCurrencyNaira size={20} />}
-          value={12300}
+          icon={<HiOutlineUser size={24} />}
+          value={product?.totalCustomers}
           label="Total Customer"
+          isMoney={false}
         />
       </div>
 
@@ -41,29 +44,24 @@ const Overview = () => {
             </p>
           </div>
 
-          <div>
-            <p className="text-sm font-medium text-slate-600">Description</p>
-            <p>{product?.product_description}</p>
-          </div>
-
           <div className="grid grid-rows-2 grid-cols-2 gap-6 w-full ">
             <div className="space-y-2">
               <p className="text-sm font-medium text-slate-600">Category</p>
-              <p>{product?.category}</p>
+              <p>{product?.product?.category}</p>
             </div>
 
             <div className="space-y-2">
               <p className="text-sm font-medium text-slate-600">Price</p>
-              <p>{moneyFormatter(product?.product_price)}</p>
+              <p>{moneyFormatter(product?.product?.productPrice)}</p>
             </div>
 
             <div className="space-y-2">
-              <p className="text-sm font-medium text-slate-600">Rating</p>
-              <p>4.5</p>
+              <p className="text-sm font-medium text-slate-600">Subcategory</p>
+              <p>{capitalizeFirstLetter(product?.product?.subCategory)}</p>
             </div>
           </div>
         </div>
-        <div className="w-1/2 shadow-sm px-6 py-12">
+        <div className="w-1/2 border-x border-b rounded-b-md shadow-sm border-slate-300 px-6 py-12">
           <div>
             <h3 className="font-medium text-xl">Performance</h3>
             <p className="text-sm font-medium text-slate-500">

@@ -1,3 +1,4 @@
+import { ICustomerParam } from "../interface/AdminInterface";
 import axiosInstance from "./axiosInstance";
 
 export const getAdmin = async () => {
@@ -24,13 +25,13 @@ export const getMerchant = async () => {
   return await axiosInstance.get(`/merchants`);
 };
 export const getProductDetails = async (productId: string) => {
-  return await axiosInstance.get(`/products/analysis`, {
+  return await axiosInstance.get(`/products/fetch/analysis`, {
     params: { productId },
   });
 };
 
-export const getProductCustomer = async (productId: string) => {
-  return await axiosInstance.get(`/products/all/customers/analysis`, {
-    params: { productId },
+export const getProductCustomer = async (params: ICustomerParam) => {
+  return await axiosInstance.get(`/products/fetch/customer/analysis`, {
+    params,
   });
 };

@@ -1,23 +1,15 @@
-import { moneyFormatter } from "../../utils";
 import { useProductCustomer } from "../../hooks/useFetch";
 import { useParams } from "react-router-dom";
 import Table from "../../utils/Table";
 
 const Customer = () => {
   const { id } = useParams();
-  const { data, isFetched } = useProductCustomer(id as string);
-  console.log(data, isFetched);
-
-  const customerData = [
-    {
-      Name: "Sarah Johnson",
-      Email: "sarah.j@example.com",
-      Telephone: "+1 (555) 123-4567",
-      "Total Spent(₦)": moneyFormatter(1240),
-      Status: "Active",
-      "Last Purchase": "2 days ago",
-    },
-  ];
+  const { data } = useProductCustomer({
+    productId: id as string,
+    limit: 10,
+    page: 1,
+  });
+  const customers = data?.data.data?.customers;
 
   return (
     <div className="w-full">
@@ -27,7 +19,7 @@ const Customer = () => {
       </div>
 
       <Table
-        data={customerData}
+        data={customers || []}
         columns={[
           "Name",
           "Email",
